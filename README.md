@@ -6,53 +6,81 @@
 [imagen5]: ./imagenes/bird1.JPG "Bird before"
 [imagen6]: ./imagenes/bird2.JPG "Bird after"
 [imagen7]: ./imagenes/final.JPG "Imagen Final"
+[imagen8]: ./imagenes/windows1.jpg "Polinomios"
 
 # SDCND Project 4: Advanced Lane Finding
 ## Writeup
 
 
-### Specification 1: Writeup, README 
-Provide a Writeup / README that includes all the rubric points and how you addressed each one. You can submit your writeup as markdown or pdf. Here is a template writeup for this project you can use as a guide and a starting point.
+## Specification 1: Writeup, README 
+### Provide a Writeup / README that includes all the rubric points and how you addressed each one. You can submit your writeup as markdown or pdf. Here is a template writeup for this project you can use as a guide and a starting point.
 
 Este resumen busca cumplir con los requirision del primer punto de la especificacion.
 
-### Specification 2: Camera Calibration
-Briefly state how you computed the camera matrix and distortion coefficients. Provide an example of a distortion corrected calibration image.
+## Specification 2: Camera Calibration
+### Briefly state how you computed the camera matrix and distortion coefficients. Provide an example of a distortion corrected calibration image.
 
 El codigo se puede encontrar en el archivo DistortCorrection.py el cual incluye una clase con el mismo nombre.
 La clase se llama del archivo Advanced Lines.py lineas 116 a 134
 En este parte del proyecto se considera que cada camara tenga parametros de correccion de la distorsion diferentes, se crea el objeto camera en la linea 116 y se definen los parametros que son las columnas y renglones de los tableros de ajedrez, (nx, ny), en la linea 131 se llama la funcion savepick, que sirve como pipeline, dentro de la clase de llaman las funciones correspodientes como, getpoints(), se define el objeto pickle para guardar los valores calculados y no tener que estar llamando cada vez y recalculando los valores de correccion. 
 
-### Specification 3: Pipeline (Test Images)
-##### Provide an example of a distortion-corrected image.
+## Specification 3: Pipeline (Test Images)
+### Provide an example of a distortion-corrected image.
 ![imagen1]
 ![imagen2]
 
 
-##### Describe how (and identify where in your code) you used color transforms, gradients or other methods to create a thresholded binary image. Provide an example of a binary image result.
+### Describe how (and identify where in your code) you used color transforms, gradients or other methods to create a thresholded binary image. Provide an example of a binary image result.
 
 Con la funcion def color_filter(img): en el archivo AdvancedLines.py lineas 9-23 se hace la transformacion de color de las imagenes para detectar las lineas del carril.
 Se convierte de RGB a BGR, y despues a HSV, y se definen tresholds para las lineas amarillas y las lineas blancas.
 Se usa para esto la funcion cv2.inRange, con los rangos para cada una de las lineas y al final se regresa una capa que muestra solo las lineas en su mayoria.
+```
+def color_filter(img):
+    imagen_BGR = cv2.cvtColor(img, cv2.COLOR_RGB2BGR)
+    hsv = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
+    yellow = cv2.inRange(hsv, (17, 76, 178), (30, 200, 255))
+
+    sensitivity_1 = 68
+    white = cv2.inRange(hsv, (0, 0, 255 - sensitivity_1), (255, 20, 255))
+
+    sensitivity_2 = 60
+    HSL = cv2.cvtColor(img, cv2.COLOR_BGR2HLS)
+    white_2 = cv2.inRange(HSL, (0, 255 - sensitivity_2, 0), (255, 255, sensitivity_2))
+    white_3 = cv2.inRange(img, (200, 200, 200), (255, 255, 255))
+
+    bit_layer = yellow | white | white_2 | white_3
+    return bit_layer
+```
+
+
 Para llegar a esta solucion primero busque con las tecnicas descritas en el curso, usando Sobel, Magnitud, y Direccion, pero al probar el resultado no es tan bueno como la funcion usada, la cual es bastante robusta para el video del proyecto, y mas sencilla.
 Esta tecnica esta basada en el post de Kyle Stewart-Frantz @kylesf en el canal de slack del projecto, afinando los threshols para optimizar la deteccion de las lineas amarillas.
+![imagen4]
+
 
 #### Describe how (and identify where in your code) you performed a perspective transform and provide an example of a transformed image.
 
 Usando una imagen con el carril en linea recta stright_lines.jpg, y con el programa GNU Gimp, se identifico los puntos en la imagen original que se querian transformar, y para llevar a cabo la transformacion se uso la clase PerspectiveTransform en el archivo PerspectiveTransform.py, esta clase regresa como resultado una imagen transformada, asi como la matriz de transformacion M. 
+
+![imagen6]
 
 #### Describe how (and identify where in your code) you identified lane-line pixels and fit their positions with a polynomial?
 
 Para esta parte del proyecto se siguo las instrucciones asi como parte del codigo del curso, adaptandola a la estructura del programa, para esto se uso la funcion draw_area(color_filtered, M): a partir de la linea 25 del archivo AdvancedLines.py, esta funcion toma como parametros la imagen transformada y filtrada, asi como la matriz de tranformacion M.
 En la linea 70 y 71 se calcula con la formula np.polifit(leftx, lefty, 2) tomando los puntos detectados en las ventanas del arreglo  left_line_inds, tal como el ejemplo.
 
+![imagen8]
+
 #### Describe how (and identify where in your code) you calculated the radius of curvature of the lane and the position of the vehicle with respect to center
 para la curvatura en la linea 107, se promedia los valores de la linea izqueirda y derecha, y se escala para mostrar el valor en kilometros, esto para visualizar mas facil este valor en el video.
+```
 curvature = ((left_curverad + right_curverad)/2)* 0.001
-
+```
 Para la desviacion del centro, se calcula la diferencia de la posicion de la linea izquierda y derecha del carril, y se escala para mostar los valores en centimetros. Esto en la linea 108
+```
 desviacion = (leftx_current-rightx_current)/100
-
+```
 #### Provide an example image of your result plotted back down onto the road such that the lane area is identified clearly.
 ![imagen7]
 
