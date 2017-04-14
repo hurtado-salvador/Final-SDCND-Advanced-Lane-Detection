@@ -1,4 +1,4 @@
-[//] # Referencias de imagenes
+[//]: # (Image References)
 [imagen1]: ./imagenes/cuadros1.JPG "Checkers before"
 [imagen2]: ./imagenes/cuadrosUnd.JPG "Checkers after"
 [imagen3]: ./imagenes/color1.JPG "Color before"
