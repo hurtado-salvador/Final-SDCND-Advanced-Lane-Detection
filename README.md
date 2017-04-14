@@ -7,8 +7,8 @@
 [imagen6]: ./imagenes/bird2.JPG "Bird after"
 [imagen7]: ./imagenes/final.JPG "Imagen Final"
 [imagen8]: ./imagenes/windows1.jpg "Polinomios"
-[imagen9]: ./imagenes/undist2.JPG "Undistorted before"
-[imagen10]: ./imagenes/undist1.JPG "Undistorted after"
+[imagen9]: ./imagenes/undist2.JPG "Undistorted b"
+[imagen10]: ./imagenes/undist1.JPG "Undistorted a"
 
 # SDCND Project 4: Advanced Lane Finding
 ## Writeup
