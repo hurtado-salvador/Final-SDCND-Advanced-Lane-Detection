@@ -1,12 +1,15 @@
+[//] # Referencias de imagenes
+[imagen1]: ./imagenes/cuadros1.JPG "Checkers before"
+[imagen2]: ./imagenes/cuadrosUnd.JPG "Checkers after"
+[imagen3]: ./imagenes/color1.JPG "Color before"
+[imagen4]: ./imagenes/color2.JPG "Color after"
+[imagen5]: ./imagenes/bird1.JPG "Bird before"
+[imagen6]: ./imagenes/bird2.JPG "Bird after"
+[imagen7]: ./imagenes/final.JPG "Imagen Final"
+
 # SDCND Project 4: Advanced Lane Finding
 ## Writeup
-[//] # Referencias de imagenes
-[imagen1]: ./imagenes/nombre1.jpg "Nombre"
-[imagen1]: ./imagenes/nombre1.jpg "Nombre"
-[imagen1]: ./imagenes/nombre1.jpg "Nombre"
-[imagen1]: ./imagenes/nombre1.jpg "Nombre"
-[imagen1]: ./imagenes/nombre1.jpg "Nombre"
-[imagen1]: ./imagenes/nombre1.jpg "Nombre"
+
 
 ### Specification 1: Writeup, README 
 Provide a Writeup / README that includes all the rubric points and how you addressed each one. You can submit your writeup as markdown or pdf. Here is a template writeup for this project you can use as a guide and a starting point.
@@ -22,6 +25,8 @@ En este parte del proyecto se considera que cada camara tenga parametros de corr
 
 ### Specification 3: Pipeline (Test Images)
 ##### Provide an example of a distortion-corrected image.
+![imagen1]
+![imagen2]
 
 
 ##### Describe how (and identify where in your code) you used color transforms, gradients or other methods to create a thresholded binary image. Provide an example of a binary image result.
@@ -49,6 +54,8 @@ Para la desviacion del centro, se calcula la diferencia de la posicion de la lin
 desviacion = (leftx_current-rightx_current)/100
 
 #### Provide an example image of your result plotted back down onto the road such that the lane area is identified clearly.
+![imagen7]
+
 
 ### Pipeline (video)
 #### Provide a link to your final video output. Your pipeline should perform reasonably well on the entire project video (wobbly lines are ok but no catastrophic failures that would cause the car to drive off the road!).
