@@ -7,6 +7,8 @@
 [imagen6]: ./imagenes/bird2.JPG "Bird after"
 [imagen7]: ./imagenes/final.JPG "Imagen Final"
 [imagen8]: ./imagenes/windows1.jpg "Polinomios"
+[imagen9]: ./imagenes/undist2.JPG "Undistorted before"
+[imagen10]: ./imagenes/undist1.JPG "Undistorted after"
 
 # SDCND Project 4: Advanced Lane Finding
 ## Writeup
@@ -23,11 +25,16 @@ Este resumen busca cumplir con los requirision del primer punto de la especifica
 El codigo se puede encontrar en el archivo DistortCorrection.py el cual incluye una clase con el mismo nombre.
 La clase se llama del archivo Advanced Lines.py lineas 116 a 134
 En este parte del proyecto se considera que cada camara tenga parametros de correccion de la distorsion diferentes, se crea el objeto camera en la linea 116 y se definen los parametros que son las columnas y renglones de los tableros de ajedrez, (nx, ny), en la linea 131 se llama la funcion savepick, que sirve como pipeline, dentro de la clase de llaman las funciones correspodientes como, getpoints(), se define el objeto pickle para guardar los valores calculados y no tener que estar llamando cada vez y recalculando los valores de correccion. 
+![imagen1]
+![imagen2]
 
 ## Specification 3: Pipeline (Test Images)
 ### Provide an example of a distortion-corrected image.
-![imagen1]
-![imagen2]
+### Actualizacion
+Tomando en cuenta la primer revision se agregan las siguientes imagenes
+Se una cuadricula de lineas azules a fin de poder apreciar facilmente el efecto al eliminar la distorsion del lente de la camara.
+![imagen9]
+![imagen10]
 
 
 ### Describe how (and identify where in your code) you used color transforms, gradients or other methods to create a thresholded binary image. Provide an example of a binary image result.
@@ -99,3 +106,11 @@ En mi caso despues de afinal los paramentros en las imagenes de prueba, al proce
 Otro problema es que hay parametros que se relacionan y funciones para calcular las lineas que regresan varios valores, en una primer instancia tuve la intension de manejar clases para las diferentes partes del proceso, pero me parecio muy complejo en la parte de la deteccion de las lineas, y preferi incluirlo como funcion en el archivo principal.
 
 En cuanto a mejorar el resultado, en el proyecto se sugire usar una clase para seguir las lineas, y poder mantener una linea estable aun  cuando no hay una buena deteccion, para el video del proyecto no fue necesario usarla, debido a la afinacion de los parametros de la funcion color_filter(), sin embargo, para los videos de reto, challenge_video.mp4, y harder_challenge_video.mp4 se puede implementar a fin de procesarlos adecuadamente.
+
+### Actualizacion
+Se redefine la formula para determinar la posicion del centro del vehiculo con respecto al centro del carril, se agrega conversion entre espacio de la imagene (en pixeles) a espacio real (metros)
+
+AdvancedLines.py line   109
+```
+desviacion = ((leftx_current + rightx_current) / 2 - image.shape[1] / 2) * xm_per_pix
+````
