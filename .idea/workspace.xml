@@ -1,37 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="11f7a25f-48ed-4bd2-ad7c-c1e7269fd216" name="Default" comment="Review 3 issues">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/imagenes/binary1.PNG" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/imagenes/binary2.PNG" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/imagenes/binary3.PNG" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/imagenes/binary4.PNG" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/imagenes/binary5.PNG" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/imagenes/binary6.PNG" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/imagenes/grid.PNG" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/imagenes/lane1.PNG" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/imagenes/lane2.PNG" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/imagenes/lane3.PNG" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/imagenes/lane4.PNG" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/imagenes/lane5.PNG" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/imagenes/lane6.PNG" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/imagenes/test1.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/imagenes/test2.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/imagenes/test3.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/imagenes/test4.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/imagenes/test5.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/imagenes/test6.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/imagenes/warp1.PNG" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/imagenes/warp2.PNG" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/imagenes/warp3.PNG" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/imagenes/warp4.PNG" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/imagenes/warp5.PNG" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/imagenes/warp6.PNG" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/images/calibration.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/images/undistort.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/video/result_center.mp4" />
+    <list default="true" id="11f7a25f-48ed-4bd2-ad7c-c1e7269fd216" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/imagenes/bird1.JPG" afterPath="$PROJECT_DIR$/imagenes/bird1.JPG" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/README.md" afterPath="$PROJECT_DIR$/README.md" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -46,8 +19,8 @@
       <file leaf-file-name="AdvancedLines.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/AdvancedLines.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1976">
-              <caret line="11" column="19" lean-forward="true" selection-start-line="11" selection-start-column="19" selection-end-line="11" selection-end-column="19" />
+            <state relative-caret-position="182">
+              <caret line="109" column="0" lean-forward="false" selection-start-line="109" selection-start-column="0" selection-end-line="111" selection-end-column="59" />
               <folding>
                 <element signature="e#0#10#0" expanded="true" />
               </folding>
@@ -59,8 +32,8 @@
         <entry file="file://$PROJECT_DIR$/README.md">
           <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
             <state split_layout="SPLIT">
-              <first_editor relative-caret-position="375">
-                <caret line="135" column="228" lean-forward="false" selection-start-line="135" selection-start-column="228" selection-end-line="135" selection-end-column="228" />
+              <first_editor relative-caret-position="2470">
+                <caret line="95" column="11" lean-forward="false" selection-start-line="95" selection-start-column="11" selection-end-line="95" selection-end-column="11" />
                 <folding />
               </first_editor>
               <second_editor />
@@ -183,6 +156,20 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="Project4" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Project4" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Project4" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="imagenes" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -400,13 +387,21 @@
       <option name="project" value="LOCAL" />
       <updated>1492295548324</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Add images and video">
+      <created>1492295778576</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1492295778576</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="ToolWindowManager">
     <frame x="-9" y="-9" width="1938" height="1048" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.1390625" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.1390625" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32930845" sideWeight="0.084375" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32930845" sideWeight="0.915625" order="2" side_tool="false" content_ui="tabs" />
@@ -452,7 +447,8 @@
     <MESSAGE value="incial commit" />
     <MESSAGE value="Add line 109 deviation calculation" />
     <MESSAGE value="Review 3 issues" />
-    <option name="LAST_COMMIT_MESSAGE" value="Review 3 issues" />
+    <MESSAGE value="Add images and video" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add images and video" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -918,8 +914,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/AdvancedLines.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1976">
-          <caret line="11" column="19" lean-forward="true" selection-start-line="11" selection-start-column="19" selection-end-line="11" selection-end-column="19" />
+        <state relative-caret-position="182">
+          <caret line="109" column="0" lean-forward="false" selection-start-line="109" selection-start-column="0" selection-end-line="111" selection-end-column="59" />
           <folding>
             <element signature="e#0#10#0" expanded="true" />
           </folding>
@@ -929,8 +925,8 @@
     <entry file="file://$PROJECT_DIR$/README.md">
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
         <state split_layout="SPLIT">
-          <first_editor relative-caret-position="375">
-            <caret line="135" column="228" lean-forward="false" selection-start-line="135" selection-start-column="228" selection-end-line="135" selection-end-column="228" />
+          <first_editor relative-caret-position="2470">
+            <caret line="95" column="11" lean-forward="false" selection-start-line="95" selection-start-column="11" selection-end-line="95" selection-end-column="11" />
             <folding />
           </first_editor>
           <second_editor />

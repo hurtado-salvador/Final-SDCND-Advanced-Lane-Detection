@@ -5,7 +5,7 @@
 [imagen4]: ./imagenes/color2.JPG "Color after"
 [imagen5]: ./imagenes/bird1.JPG "Bird before"
 [imagen6]: ./imagenes/bird2.JPG "Bird after"
-[imagen7]: ./imagenes/final.JPG "Imagen Final"
+[imagen7]: ./imagenes/lane1.JPG "Imagen Final"
 [imagen8]: ./imagenes/windows1.jpg "Polinomios"
 [imagen9]: ./images/undistort.png "Undistorted b"
 [imagen10]: ./imagenes/grid.PNG " test images"
@@ -18,7 +18,7 @@
 ## Specification 1: Writeup, README 
 ### Provide a Writeup / README that includes all the rubric points and how you addressed each one. You can submit your writeup as markdown or pdf. Here is a template writeup for this project you can use as a guide and a starting point.
 
-Este resumen busca cumplir con los requirision del primer punto de la especificacion.
+Este resumen busca cumplir con los requisitos del primer punto de la especificacion.
 
 ## Specification 2: Camera Calibration
 ### Briefly state how you computed the camera matrix and distortion coefficients. Provide an example of a distortion corrected calibration image.
@@ -91,7 +91,12 @@ curvature = ((left_curverad + right_curverad)/2)* 0.001
 ```
 Para la desviacion del centro, se calcula la diferencia de la posicion de la linea izquierda y derecha del carril, y se escala para mostar los valores en centimetros. Esto en la linea 108
 ```
+#Anterior
 desviacion = (leftx_current-rightx_current)/100
+#Modificado
+desviacion_L = image.shape[1]/2 - leftx_current
+desviacion_R = image.shape[1] - rightx_current
+desviacion = (desviacion_L - desviacion_R) * xm_per_pix
 ```
 #### Provide an example image of your result plotted back down onto the road such that the lane area is identified clearly.
 ![imagen7]
