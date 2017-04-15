@@ -105,7 +105,8 @@ def draw_area(color_filtered, M):
     Minv = inv(M)
     newwarp = cv2.warpPerspective(color_warp, Minv, (image.shape[1], image.shape[0]))
     curvature = ((left_curverad + right_curverad)/2)* 0.001
-    desviacion = (leftx_current-rightx_current)/100
+    #desviacion = (leftx_current-rightx_current)/100
+    desviacion = ((leftx_current + rightx_current) / 2 - image.shape[1] / 2) * xm_per_pix
 
 
 
