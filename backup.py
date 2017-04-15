@@ -9,14 +9,14 @@ from moviepy.editor import VideoFileClip
 
 def color_filter(img):
     imagen_BGR = cv2.cvtColor(img, cv2.COLOR_RGB2BGR)
-    hsv = cv2.cvtColor(imagen_BGR, cv2.COLOR_BGR2HSV)
+    hsv = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
     yellow = cv2.inRange(hsv, (17, 76, 178), (30, 200, 255))
 
     sensitivity_1 = 68
     white = cv2.inRange(hsv, (0, 0, 255 - sensitivity_1), (255, 20, 255))
 
     sensitivity_2 = 60
-    HSL = cv2.cvtColor(imagen_BGR, cv2.COLOR_BGR2HLS)
+    HSL = cv2.cvtColor(img, cv2.COLOR_BGR2HLS)
     white_2 = cv2.inRange(HSL, (0, 255 - sensitivity_2, 0), (255, 255, sensitivity_2))
     white_3 = cv2.inRange(img, (200, 200, 200), (255, 255, 255))
 
@@ -266,7 +266,7 @@ ny = 5
 imgPath = '../CarND-Advanced-Lane-Lines/camera_cal/calibration*.jpg'
 pfilePath = '../CarND-Advanced-Lane-Lines/camera_cal/wide_dist_pickle.p'
 # image = cv2.imread('../CarND-Advanced-Lane-Lines/camera_cal/calibration1.jpg')
-image = plt.imread('../CarND-Advanced-Lane-Lines/test_images/test5.jpg')
+image = cv2.imread('../CarND-Advanced-Lane-Lines/test_images/undist1.jpg')
 
 # 2.- Call class to correct camera distortion
 camera = DistortionCorrection()
@@ -310,14 +310,14 @@ cv2.destroyAllWindows()
 
 ### Color Transform
 color_filtered = color_filter(warped)
-'''
+
 ### Imagen de Muestra para vista de pajaro
 cv2.imshow('Imagen original',warped)
 cv2.waitKey(0)
 cv2.imshow('Imagen Transformada',color_filtered)
 cv2.waitKey(0)
 cv2.destroyAllWindows()
-
+'''
 
 ### Detect Lines Pixels
 lane = draw_area(color_filtered)
@@ -336,15 +336,15 @@ def procesar_imagen(image):
     lane = draw_area(color_filtered)
     result = cv2.addWeighted(image, 1, lane, 0.3, 0)
 
-    return result
+    return undistort_image
 
 
-'''
+
 asd = procesar_imagen(image)
 cv2.imshow('Imagen Carril',asd)
 cv2.waitKey(0)
 cv2.destroyAllWindows()
-
+'''
 # Apply process image to video.
 white_output = 'D:/aaSDCNDJ/CarND-Advanced-Lane-Lines/result_challenge.mp4'
 clip1 = VideoFileClip("D:/aaSDCNDJ/CarND-Advanced-Lane-Lines/challenge_video.mp4")

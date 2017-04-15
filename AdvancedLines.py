@@ -105,10 +105,8 @@ def draw_area(color_filtered, M):
     Minv = inv(M)
     newwarp = cv2.warpPerspective(color_warp, Minv, (image.shape[1], image.shape[0]))
     curvature = ((left_curverad + right_curverad)/2)* 0.001
-    desviacion = (leftx_current-rightx_current)/100
-
-
-
+    #desviacion = (leftx_current-rightx_current)/100
+    desviacion = ((leftx_current + rightx_current) / 2 - image.shape[1] / 2) * xm_per_pix
 
     return newwarp, curvature, desviacion
 
@@ -147,7 +145,7 @@ def procesar_imagen(image):
     lane, curvature, desv = draw_area(color_filtered, M)
     #image = cv2.cvtColor(image, cv2.COLOR_RGB2BGR)
     text = "Lane Curvature:  " + str(round(curvature, 2)) + "km"
-    text2 = "Deviation from center: " + str(desv) + "cm"
+    text2 = "Deviation from center: " + str(round(desv,3)) + "mts"
     font = cv2.FONT_HERSHEY_SIMPLEX
     cv2.putText(image, text, (10, 200), font, 1, (255, 255, 255), 2)
     cv2.putText(image, text2, (10, 300), font, 1, (255, 255, 255), 2)
@@ -163,7 +161,7 @@ cv2.destroyAllWindows()
 
 '''
 # Apply process image to video.
-white_output = 'D:/aaSDCNDJ/CarND-Advanced-Lane-Lines/result_curvature.mp4'
+white_output = 'D:/aaSDCNDJ/CarND-Advanced-Lane-Lines/result_position.mp4'
 clip1 = VideoFileClip("D:/aaSDCNDJ/CarND-Advanced-Lane-Lines/project_video.mp4")
 white_clip = clip1.fl_image(procesar_imagen) #NOTE: this function expects color images!!
 white_clip.write_videofile(white_output, audio=False)
