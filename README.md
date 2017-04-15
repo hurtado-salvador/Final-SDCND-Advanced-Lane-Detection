@@ -1,5 +1,5 @@
 [//]: # (Image References)
-[imagen1]: ./imagenes/cuadros1.JPG "Checkers before"
+[imagen1]: ./images/calibration.png "Checkers before"
 [imagen2]: ./imagenes/cuadrosUnd.JPG "Checkers after"
 [imagen3]: ./imagenes/color1.JPG "Color before"
 [imagen4]: ./imagenes/color2.JPG "Color after"
@@ -7,8 +7,9 @@
 [imagen6]: ./imagenes/bird2.JPG "Bird after"
 [imagen7]: ./imagenes/final.JPG "Imagen Final"
 [imagen8]: ./imagenes/windows1.jpg "Polinomios"
-[imagen9]: ./imagenes/undist2.JPG "Undistorted b"
-[imagen10]: ./imagenes/undist1.JPG "Undistorted a"
+[imagen9]: ./images/undistort.png "Undistorted b"
+[imagen10]: ./imagenes/grid.PNG " test images"
+
 
 # SDCND Project 4: Advanced Lane Finding
 ## Writeup
@@ -26,7 +27,7 @@ El codigo se puede encontrar en el archivo DistortCorrection.py el cual incluye 
 La clase se llama del archivo Advanced Lines.py lineas 116 a 134
 En este parte del proyecto se considera que cada camara tenga parametros de correccion de la distorsion diferentes, se crea el objeto camera en la linea 116 y se definen los parametros que son las columnas y renglones de los tableros de ajedrez, (nx, ny), en la linea 131 se llama la funcion savepick, que sirve como pipeline, dentro de la clase de llaman las funciones correspodientes como, getpoints(), se define el objeto pickle para guardar los valores calculados y no tener que estar llamando cada vez y recalculando los valores de correccion. 
 ![imagen1]
-![imagen2]
+
 
 ## Specification 3: Pipeline (Test Images)
 ### Provide an example of a distortion-corrected image.
@@ -34,7 +35,12 @@ En este parte del proyecto se considera que cada camara tenga parametros de corr
 Tomando en cuenta la primer revision se agregan las siguientes imagenes
 Se una cuadricula de lineas azules a fin de poder apreciar facilmente el efecto al eliminar la distorsion del lente de la camara.
 ![imagen9]
+
+La siguiente imagen se agrego despues de la revision 6, muestra las diferentes imagenes de prueba despues de aplicar los metodos de transformacion.
+En la primer columna se muestra la imagen original, despues la vista de pajaro, despues la extraccion de lineas del carril, y por ultimo la composicion superpuesta en la imagen original.
+
 ![imagen10]
+
 
 
 ### Describe how (and identify where in your code) you used color transforms, gradients or other methods to create a thresholded binary image. Provide an example of a binary image result.
@@ -70,7 +76,6 @@ Esta tecnica esta basada en el post de Kyle Stewart-Frantz @kylesf en el canal d
 
 Usando una imagen con el carril en linea recta stright_lines.jpg, y con el programa GNU Gimp, se identifico los puntos en la imagen original que se querian transformar, y para llevar a cabo la transformacion se uso la clase PerspectiveTransform en el archivo PerspectiveTransform.py, esta clase regresa como resultado una imagen transformada, asi como la matriz de transformacion M. 
 
-![imagen6]
 
 #### Describe how (and identify where in your code) you identified lane-line pixels and fit their positions with a polynomial?
 
@@ -100,6 +105,8 @@ https://youtu.be/ZEeUDFSroII    Original video.
 Updated Video 
 https://youtu.be/pZ87UePDSbA
 
+video after review 3 attached in video directory  
+
 ### Discussion
 #### Briefly discuss any problems / issues you faced in your implementation of this project. Where will your pipeline likely fail? What could you do to make it more robust?
 
@@ -117,3 +124,13 @@ AdvancedLines.py line   109
 ```
 desviacion = ((leftx_current + rightx_current) / 2 - image.shape[1] / 2) * xm_per_pix
 ````
+
+Despues de la revision 3 se agrega composicion de imagenes con los resultados de las diferentes operaciones aplicadas.
+Se cambia formula para calcular la desviacion con respecto del centro del carril, se calcula de la siguiente forma
+posicion izquierda, menos la mitad de la dimension en X de la imagen, esto nos da la distancia del centro hacia la linea izquierda.
+Se calcula la posicion de la linea derecha calculando la dimension en X de la imagen menos la posicion de la linea derecha.
+Y la diferencia de estas posiciones nos indica la posicion del vehiculo con respecto al centro.
+
+Se encontro que el problema de que la capa verde del carril no coincidia con el carril era debido a que se estaba usando la imagen sin corregir la distorsion, debid a esto se tenia esta desalineacion, se corrige en el pipeline.
+
+Se puede refinar mas el proyecto, como se observa en las imagenes procesadas la deteccion en imagenes con sombra no es lo suficientemetne robusta, al probar con los videos de reto, falla al pasar el vehiculo debajo de un puente.

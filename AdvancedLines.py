@@ -92,7 +92,7 @@ def draw_area(color_filtered, M):
     plt.ylim(720, 0)
     y_eval = np.max(ploty)
     ym_per_pix = 30/720 # meters per pixel in y dimension
-    xm_per_pix = 3.7/700 # meters per pixel in x dimension
+    xm_per_pix = 3.7/725 # meters per pixel in x dimension
     left_curverad = ((1 + (2*left_fit[0]*y_eval + left_fit[1])**2)**1.5) / np.absolute(2*left_fit[0])
     right_curverad = ((1 + (2*right_fit[0]*y_eval + right_fit[1])**2)**1.5) / np.absolute(2*right_fit[0])
 
@@ -106,7 +106,11 @@ def draw_area(color_filtered, M):
     newwarp = cv2.warpPerspective(color_warp, Minv, (image.shape[1], image.shape[0]))
     curvature = ((left_curverad + right_curverad)/2)* 0.001
     #desviacion = (leftx_current-rightx_current)/100
-    desviacion = ((leftx_current + rightx_current) / 2 - image.shape[1] / 2) * xm_per_pix
+    #print(leftx_current, rightx_current, image.shape[1] )
+    desviacion_L = image.shape[1]/2 - leftx_current
+    desviacion_R = image.shape[1] - rightx_current
+    desviacion = (desviacion_L - desviacion_R) * xm_per_pix
+    #desviacion = ((leftx_current + rightx_current) / 2 - image.shape[1] / 2) * xm_per_pix
 
     return newwarp, curvature, desviacion
 
@@ -118,7 +122,7 @@ ny = 5
 imgPath = '../CarND-Advanced-Lane-Lines/camera_cal/calibration*.jpg'
 pfilePath = '../CarND-Advanced-Lane-Lines/camera_cal/wide_dist_pickle.p'
 #image = cv2.imread('../CarND-Advanced-Lane-Lines/camera_cal/calibration1.jpg')
-image = plt.imread('../CarND-Advanced-Lane-Lines/test_images/test5.jpg')
+image = plt.imread('.imagenes/test6.jpg')
 
 # 2.- Call class to correct camera distortion
 camera = DistortionCorrection()
@@ -126,7 +130,7 @@ camera.setvars(nx, ny, imgPath, pfilePath, image)
 
 # 3.- Save Image Matrix,  and Distortion Matrix to pickle file
 # Needs to be run only once to calculate the distortion correction matrix
-#camera.savepick()
+camera.savepick()
 
 # 4.- Load saved values from pickle file
 distp = camera.loadpick()
@@ -143,13 +147,13 @@ def procesar_imagen(image):
     warped, M = perspTrans.warpedTrans(undistort_image)
     color_filtered = color_filter(warped)
     lane, curvature, desv = draw_area(color_filtered, M)
-    #image = cv2.cvtColor(image, cv2.COLOR_RGB2BGR)
+    #image2 = cv2.cvtColor(undistort_image, cv2.COLOR_RGB2BGR) # modify from image, to undistort_image
     text = "Lane Curvature:  " + str(round(curvature, 2)) + "km"
     text2 = "Deviation from center: " + str(round(desv,3)) + "mts"
     font = cv2.FONT_HERSHEY_SIMPLEX
-    cv2.putText(image, text, (10, 200), font, 1, (255, 255, 255), 2)
-    cv2.putText(image, text2, (10, 300), font, 1, (255, 255, 255), 2)
-    result = cv2.addWeighted(image, 1, lane, 0.3, 0)
+    cv2.putText(undistort_image, text, (10, 200), font, 1, (255, 255, 255), 2)
+    cv2.putText(undistort_image, text2, (10, 300), font, 1, (255, 255, 255), 2)
+    result = cv2.addWeighted(undistort_image, 1, lane, 0.3, 0)
 
     return result
 '''
@@ -161,7 +165,7 @@ cv2.destroyAllWindows()
 
 '''
 # Apply process image to video.
-white_output = 'D:/aaSDCNDJ/CarND-Advanced-Lane-Lines/result_position.mp4'
+white_output = 'D:/aaSDCNDJ/CarND-Advanced-Lane-Lines/result_center.mp4'
 clip1 = VideoFileClip("D:/aaSDCNDJ/CarND-Advanced-Lane-Lines/project_video.mp4")
 white_clip = clip1.fl_image(procesar_imagen) #NOTE: this function expects color images!!
 white_clip.write_videofile(white_output, audio=False)
