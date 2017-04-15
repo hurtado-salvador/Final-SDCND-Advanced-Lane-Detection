@@ -5,7 +5,7 @@
 [imagen4]: ./imagenes/color2.JPG "Color after"
 [imagen5]: ./imagenes/bird1.JPG "Bird before"
 [imagen6]: ./imagenes/bird2.JPG "Bird after"
-[imagen7]: ./imagenes/lane1.JPG "Imagen Final"
+[imagen7]: ./imagenes/lane1.PNG "Imagen Final"
 [imagen8]: ./imagenes/windows1.jpg "Polinomios"
 [imagen9]: ./images/undistort.png "Undistorted b"
 [imagen10]: ./imagenes/grid.PNG " test images"
