@@ -127,7 +127,14 @@ Se redefine la formula para determinar la posicion del centro del vehiculo con r
 
 AdvancedLines.py line   109
 ```
+# Anterior
 desviacion = ((leftx_current + rightx_current) / 2 - image.shape[1] / 2) * xm_per_pix
+
+# Modificada
+desviacion_L = image.shape[1]/2 - leftx_current
+desviacion_R = image.shape[1] - rightx_current
+desviacion = (desviacion_L - desviacion_R) * xm_per_pix
+
 ````
 
 Despues de la revision 3 se agrega composicion de imagenes con los resultados de las diferentes operaciones aplicadas.
