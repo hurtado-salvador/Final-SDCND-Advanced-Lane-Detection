@@ -95,7 +95,10 @@ desviacion = (leftx_current-rightx_current)/100
 ### Pipeline (video)
 #### Provide a link to your final video output. Your pipeline should perform reasonably well on the entire project video (wobbly lines are ok but no catastrophic failures that would cause the car to drive off the road!).
 Video can be found in YouTube, following this link.
-https://youtu.be/ZEeUDFSroII
+https://youtu.be/ZEeUDFSroII    Original video.
+
+Updated Video 
+https://youtu.be/pZ87UePDSbA
 
 ### Discussion
 #### Briefly discuss any problems / issues you faced in your implementation of this project. Where will your pipeline likely fail? What could you do to make it more robust?
