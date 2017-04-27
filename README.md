@@ -115,6 +115,8 @@ video after review 3 attached in video directory
 Link Composition Video
 https://youtu.be/09SM0Np2Qvg
 
+#### **_Link Video After Latest Review_** https://youtu.be/c6LgK7t4Dpk
+
 ### Discussion
 #### Briefly discuss any problems / issues you faced in your implementation of this project. Where will your pipeline likely fail? What could you do to make it more robust?
 
@@ -138,6 +140,8 @@ desviacion_L = image.shape[1]/2 - leftx_current
 desviacion_R = image.shape[1] - rightx_current
 desviacion = (desviacion_L - desviacion_R) * xm_per_pix
 
+# Latest Review
+desviacion = ((leftx_current + rightx_current) / 2 - image.shape[1] / 2) * xm_per_pix
 ````
 
 Despues de la revision 3 se agrega composicion de imagenes con los resultados de las diferentes operaciones aplicadas.
@@ -149,3 +153,29 @@ Y la diferencia de estas posiciones nos indica la posicion del vehiculo con resp
 Se encontro que el problema de que la capa verde del carril no coincidia con el carril era debido a que se estaba usando la imagen sin corregir la distorsion, debid a esto se tenia esta desalineacion, se corrige en el pipeline.
 
 Se puede refinar mas el proyecto, como se observa en las imagenes procesadas la deteccion en imagenes con sombra no es lo suficientemetne robusta, al probar con los videos de reto, falla al pasar el vehiculo debajo de un puente.
+
+## UPDATE
+#### Requirement
+
+**Please note the radius of curvature needs to be calculated using an additional polynomial fitting scaled to the world space (meters), please check my notes at code review section about this issue.**
+**The formula used to measure the position of the car is not correct and the returned values are not consistent with the real position of the car. The correct way to measure the car's position is the one you used in the previous submission, please refactor this part of the code. Probably the previous submission values were inconsistent due to the scale factor were not fine tuned according to the lane's width (pixels).**
+
+Updated code, AdvancedLines.py line 104, polynomial calculated in world space
+
+```
+    # Fit new polynomials to x,y in world space
+
+    left_fit_cr = np.polyfit(lefty * ym_per_pix, leftx * xm_per_pix, 2)
+    right_fit_cr = np.polyfit(righty * ym_per_pix, rightx * xm_per_pix, 2)
+
+    ## MODIFIED TO WORLD SPACE ###
+    left_curverad = ((1 + (2*left_fit_cr[0]*y_eval*ym_per_pix + left_fit_cr[1])**2)**1.5) / np.absolute(2*left_fit_cr[0])
+    right_curverad = ((1 + (2*right_fit_cr[0]*y_eval*ym_per_pix + right_fit_cr[1])**2)**1.5) / np.absolute(2*right_fit_cr[0])
+    ########
+```
+
+Updated code, AdvancedLines.py line 127, corrected formula to calculate position
+```
+# Latest Review
+desviacion = ((leftx_current + rightx_current) / 2 - image.shape[1] / 2) * xm_per_pix
+```

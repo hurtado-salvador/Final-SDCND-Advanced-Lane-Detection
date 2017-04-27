@@ -7,6 +7,14 @@ from numpy.linalg import inv
 from moviepy.editor import VideoFileClip
 
 def color_filter(img):
+    '''
+    This function filter the white and yellow in a color image with the objective to find lane lines in a road
+    change the input image to HSV color space and using cv2.inRange extract the yellow and white lines
+    
+    :param img: RGB image (after bird view transformation)
+    :return: a layer with the yellow and white lines only (X,Y,1 channel)
+    
+    '''
     imagen_BGR = cv2.cvtColor(img, cv2.COLOR_RGB2BGR)
     hsv = cv2.cvtColor(imagen_BGR, cv2.COLOR_BGR2HSV)
     yellow = cv2.inRange(hsv, (17, 76, 178), (30, 200, 255))
@@ -23,6 +31,20 @@ def color_filter(img):
     return bit_layer
 
 def draw_area(color_filtered, M):
+    '''
+    This function get the detected lines and fit a second degree polynomial based on the pixels detected.
+    Fill the area in the lane as an overlay 
+    transform the overlay from bird eyes view to original perspective
+    calculate and return the curvature and position with respect to the center of the lane in world space.
+    
+    :param color_filtered: 1 channel image with detected lines
+    :param M: Matrix needed to make the transformation to the original perspective
+    :return: newwarp, image with the lane overlay transformed to the original perspective
+             curvatrue, return calculated curvature value
+             desviacion, return calculated deviation from center of lane.
+    '''
+
+    # Set out_image
     out_img = np.zeros_like(color_filtered)
     out_img = np.dstack((out_img, out_img, out_img))
     nwindows = 9
@@ -63,6 +85,7 @@ def draw_area(color_filtered, M):
 
     left_lane_inds = np.concatenate(left_lane_inds)
     right_lane_inds = np.concatenate(right_lane_inds)
+
     leftx = nonzerox[left_lane_inds]
     lefty = nonzeroy[left_lane_inds]
     rightx = nonzerox[right_lane_inds]
@@ -74,28 +97,19 @@ def draw_area(color_filtered, M):
     left_fitx = left_fit[0] * ploty ** 2 + left_fit[1] * ploty + left_fit[2]
     right_fitx = right_fit[0] * ploty ** 2 + right_fit[1] * ploty + right_fit[2]
 
-    margin = 100
-    window_img = np.zeros_like(out_img)
-    left_line_window1 = np.array([np.transpose(np.vstack([left_fitx-margin, ploty]))])
-    left_line_window2 = np.array([np.flipud(np.transpose(np.vstack([left_fitx+margin, ploty])))])
-    left_line_pts = np.hstack((left_line_window1, left_line_window2))
-    right_line_window1 = np.array([np.transpose(np.vstack([right_fitx-margin, ploty]))])
-    right_line_window2 = np.array([np.flipud(np.transpose(np.vstack([right_fitx+margin, ploty])))])
-    right_line_pts = np.hstack((right_line_window1, right_line_window2))
-    cv2.fillPoly(window_img, np.int_([left_line_pts]), (0,255, 0))
-    cv2.fillPoly(window_img, np.int_([right_line_pts]), (0,255, 0))
-    result = cv2.addWeighted(out_img, 1, window_img, 0.3, 0)
-    plt.imshow(result)
-    plt.plot(left_fitx, ploty, color='yellow')
-    plt.plot(right_fitx, ploty, color='yellow')
-    plt.xlim(0, 1280)
-    plt.ylim(720, 0)
     y_eval = np.max(ploty)
     ym_per_pix = 30/720 # meters per pixel in y dimension
     xm_per_pix = 3.7/725 # meters per pixel in x dimension
-    left_curverad = ((1 + (2*left_fit[0]*y_eval + left_fit[1])**2)**1.5) / np.absolute(2*left_fit[0])
-    right_curverad = ((1 + (2*right_fit[0]*y_eval + right_fit[1])**2)**1.5) / np.absolute(2*right_fit[0])
 
+    # Fit new polynomials to x,y in world space
+
+    left_fit_cr = np.polyfit(lefty * ym_per_pix, leftx * xm_per_pix, 2)
+    right_fit_cr = np.polyfit(righty * ym_per_pix, rightx * xm_per_pix, 2)
+
+    ## MODIFIED TO WORLD SPACE ###
+    left_curverad = ((1 + (2*left_fit_cr[0]*y_eval*ym_per_pix + left_fit_cr[1])**2)**1.5) / np.absolute(2*left_fit_cr[0])
+    right_curverad = ((1 + (2*right_fit_cr[0]*y_eval*ym_per_pix + right_fit_cr[1])**2)**1.5) / np.absolute(2*right_fit_cr[0])
+    ########
     warp_zero = np.zeros_like(color_filtered).astype(np.uint8)
     color_warp = np.dstack((warp_zero, warp_zero, warp_zero))
     pts_left = np.array([np.transpose(np.vstack([left_fitx, ploty]))])
@@ -107,10 +121,10 @@ def draw_area(color_filtered, M):
     curvature = ((left_curverad + right_curverad)/2)* 0.001
     #desviacion = (leftx_current-rightx_current)/100
     #print(leftx_current, rightx_current, image.shape[1] )
-    desviacion_L = image.shape[1]/2 - leftx_current
-    desviacion_R = image.shape[1] - rightx_current
-    desviacion = (desviacion_L - desviacion_R) * xm_per_pix
-    #desviacion = ((leftx_current + rightx_current) / 2 - image.shape[1] / 2) * xm_per_pix
+    #desviacion_L = image.shape[1]/2 - leftx_current
+    #desviacion_R = image.shape[1] - rightx_current
+    #desviacion = (desviacion_L - desviacion_R) * xm_per_pix
+    desviacion = ((leftx_current + rightx_current) / 2 - image.shape[1] / 2) * xm_per_pix
 
     return newwarp, curvature, desviacion
 
@@ -121,8 +135,8 @@ nx = 9
 ny = 5
 imgPath = '../CarND-Advanced-Lane-Lines/camera_cal/calibration*.jpg'
 pfilePath = '../CarND-Advanced-Lane-Lines/camera_cal/wide_dist_pickle.p'
-#image = cv2.imread('../CarND-Advanced-Lane-Lines/camera_cal/calibration1.jpg')
-image = plt.imread('.imagenes/test6.jpg')
+image = cv2.imread('../CarND-Advanced-Lane-Lines/camera_cal/calibration1.jpg')
+#image = plt.imread('.imagenes/test6.jpg')
 
 # 2.- Call class to correct camera distortion
 camera = DistortionCorrection()
@@ -130,7 +144,7 @@ camera.setvars(nx, ny, imgPath, pfilePath, image)
 
 # 3.- Save Image Matrix,  and Distortion Matrix to pickle file
 # Needs to be run only once to calculate the distortion correction matrix
-camera.savepick()
+# camera.savepick()
 
 # 4.- Load saved values from pickle file
 distp = camera.loadpick()
@@ -143,16 +157,25 @@ perspTrans.setSourcePoints(source_points,destination_points)
 
 
 def procesar_imagen(image):
+    '''
+    This function is the pipeline to transform an input image 
+    Correct distortion
+    Transform to bird eyes view
+    Extract white and yellow lines
+    Calculate curvature and vehicle position
+    Compose the final image
+    :param image: 
+    :return: 
+    '''
     undistort_image = cv2.undistort(image, distp["mtx"], distp["dist"], None, distp["mtx"])
     warped, M = perspTrans.warpedTrans(undistort_image)
     color_filtered = color_filter(warped)
     lane, curvature, desv = draw_area(color_filtered, M)
-    #image2 = cv2.cvtColor(undistort_image, cv2.COLOR_RGB2BGR) # modify from image, to undistort_image
     text = "Lane Curvature:  " + str(round(curvature, 2)) + "km"
     text2 = "Deviation from center: " + str(round(desv,3)) + "mts"
     font = cv2.FONT_HERSHEY_SIMPLEX
-    cv2.putText(undistort_image, text, (10, 200), font, 1, (255, 255, 255), 2)
-    cv2.putText(undistort_image, text2, (10, 300), font, 1, (255, 255, 255), 2)
+    cv2.putText(undistort_image, text, (10, 200), font, 1, (255, 5, 5), 2)
+    cv2.putText(undistort_image, text2, (10, 300), font, 1, (5, 5, 255), 2)
     result = cv2.addWeighted(undistort_image, 1, lane, 0.3, 0)
 
     return result
@@ -165,7 +188,7 @@ cv2.destroyAllWindows()
 
 '''
 # Apply process image to video.
-white_output = 'D:/aaSDCNDJ/CarND-Advanced-Lane-Lines/result_center.mp4'
+white_output = 'D:/aaSDCNDJ/CarND-Advanced-Lane-Lines/result_Project4.mp4'
 clip1 = VideoFileClip("D:/aaSDCNDJ/CarND-Advanced-Lane-Lines/project_video.mp4")
 white_clip = clip1.fl_image(procesar_imagen) #NOTE: this function expects color images!!
 white_clip.write_videofile(white_output, audio=False)
