@@ -98,9 +98,9 @@ def draw_area(color_filtered, M):
     right_fitx = right_fit[0] * ploty ** 2 + right_fit[1] * ploty + right_fit[2]
 
     y_eval = np.max(ploty)
-    ym_per_pix = 30/720 # meters per pixel in y dimension
-    xm_per_pix = 3.7/725 # meters per pixel in x dimension
-
+    ym_per_pix = 3/103 # meters per pixel in y dimension
+    xm_per_pix = 3.7/792 # meters per pixel in x dimension
+    lane_width = 792#px
     # Fit new polynomials to x,y in world space
 
     left_fit_cr = np.polyfit(lefty * ym_per_pix, leftx * xm_per_pix, 2)
@@ -124,8 +124,14 @@ def draw_area(color_filtered, M):
     #desviacion_L = image.shape[1]/2 - leftx_current
     #desviacion_R = image.shape[1] - rightx_current
     #desviacion = (desviacion_L - desviacion_R) * xm_per_pix
-    desviacion = ((leftx_current + rightx_current) / 2 - image.shape[1] / 2) * xm_per_pix
 
+    #calculate the average of the 30 that are part of the lane lines at the bottom of the image
+
+    left_bottom_position = np.average(leftx[-10])
+    right_bottom_position = left_bottom_position + lane_width
+    desviacion = ((left_bottom_position + right_bottom_position) / 2 - image.shape[1] / 2) * xm_per_pix
+
+    #print(desviacion, left_bottom_position, right_bottom_position)
     return newwarp, curvature, desviacion
 
 
@@ -135,8 +141,8 @@ nx = 9
 ny = 5
 imgPath = '../CarND-Advanced-Lane-Lines/camera_cal/calibration*.jpg'
 pfilePath = '../CarND-Advanced-Lane-Lines/camera_cal/wide_dist_pickle.p'
-image = cv2.imread('../CarND-Advanced-Lane-Lines/camera_cal/calibration1.jpg')
-#image = plt.imread('.imagenes/test6.jpg')
+#image = cv2.imread('imagenes/test1.jpg')
+image = plt.imread('imagenes/test5.jpg')
 
 # 2.- Call class to correct camera distortion
 camera = DistortionCorrection()
@@ -182,13 +188,14 @@ def procesar_imagen(image):
 '''
 asd = procesar_imagen(image)
 cv2.imshow('Imagen Carril',asd)
+#cv2.imwrite('video/result.jpg', asd)
 cv2.waitKey(0)
 cv2.destroyAllWindows()
 
 
 '''
 # Apply process image to video.
-white_output = 'D:/aaSDCNDJ/CarND-Advanced-Lane-Lines/result_Project4.mp4'
+white_output = 'D:/aaSDCNDJ/CarND-Advanced-Lane-Lines/result_Project6.mp4'
 clip1 = VideoFileClip("D:/aaSDCNDJ/CarND-Advanced-Lane-Lines/project_video.mp4")
-white_clip = clip1.fl_image(procesar_imagen) #NOTE: this function expects color images!!
+white_clip = clip1.fl_image(procesar_imagen)#.subclip(1,3) #NOTE: this function expects color images!!
 white_clip.write_videofile(white_output, audio=False)

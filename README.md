@@ -9,7 +9,7 @@
 [imagen8]: ./imagenes/windows1.jpg "Polinomios"
 [imagen9]: ./images/undistort.png "Undistorted b"
 [imagen10]: ./imagenes/grid.PNG " test images"
-
+[center]: .imagenes/centerPosition.jpg "Center Position"
 
 # SDCND Project 4: Advanced Lane Finding
 ## Writeup
@@ -179,3 +179,12 @@ Updated code, AdvancedLines.py line 127, corrected formula to calculate position
 # Latest Review
 desviacion = ((leftx_current + rightx_current) / 2 - image.shape[1] / 2) * xm_per_pix
 ```
+
+Center Position corrected values.
+The code was reviewed and the calculations to transform the distances from  image spage to world space were computed in reference with the following document (http://www.th.gov.bc.ca/publications/eng_publications/electrical/most_pm.pdf).
+The problem with the values of the position of the vehicle in relation to the Lane center, was found as the calculation of the position considered values at the lower edge of the image (y = 720) but the calculation of the position was in regards of the position at the end of the car's hood, that is at (y = 665).
+Correcting this reference results in a more acurate values.
+Video added (video/result_Project6.mp4)
+
+![center]
+
