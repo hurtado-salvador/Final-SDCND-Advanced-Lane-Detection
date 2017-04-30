@@ -9,7 +9,7 @@
 [imagen8]: ./imagenes/windows1.jpg "Polinomios"
 [imagen9]: ./images/undistort.png "Undistorted b"
 [imagen10]: ./imagenes/grid.PNG " test images"
-[center]: .imagenes/centerPosition.jpg "Center Position"
+[center]: ./imagenes/centerPosition.jpg "Center Position"
 
 # SDCND Project 4: Advanced Lane Finding
 ## Writeup

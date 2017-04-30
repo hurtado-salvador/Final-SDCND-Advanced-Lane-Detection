@@ -2,11 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="11f7a25f-48ed-4bd2-ad7c-c1e7269fd216" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/imagenes/centerPosition.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/video/result_Project6.mp4" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/imagenes/bird1.JPG" afterPath="$PROJECT_DIR$/imagenes/bird1.JPG" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/AdvancedLines.py" afterPath="$PROJECT_DIR$/AdvancedLines.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/README.md" afterPath="$PROJECT_DIR$/README.md" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -45,8 +42,8 @@
         <entry file="file://$PROJECT_DIR$/README.md">
           <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
             <state split_layout="SPLIT">
-              <first_editor relative-caret-position="4836">
-                <caret line="186" column="19" lean-forward="false" selection-start-line="186" selection-start-column="19" selection-end-line="186" selection-end-column="19" />
+              <first_editor relative-caret-position="286">
+                <caret line="11" column="12" lean-forward="false" selection-start-line="11" selection-start-column="12" selection-end-line="11" selection-end-column="12" />
                 <folding />
               </first_editor>
               <second_editor />
@@ -482,7 +479,14 @@
       <option name="project" value="LOCAL" />
       <updated>1493264390166</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="Update position">
+      <created>1493515038423</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1493515038423</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -538,7 +542,8 @@
     <MESSAGE value="Add images and video" />
     <MESSAGE value="Add deviation code in readme" />
     <MESSAGE value="Review 4 update curvature and position in world space" />
-    <option name="LAST_COMMIT_MESSAGE" value="Review 4 update curvature and position in world space" />
+    <MESSAGE value="Update position" />
+    <option name="LAST_COMMIT_MESSAGE" value="Update position" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1012,8 +1017,8 @@
       </provider>
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
         <state split_layout="SPLIT">
-          <first_editor relative-caret-position="4836">
-            <caret line="186" column="19" lean-forward="false" selection-start-line="186" selection-start-column="19" selection-end-line="186" selection-end-column="19" />
+          <first_editor relative-caret-position="286">
+            <caret line="11" column="12" lean-forward="false" selection-start-line="11" selection-start-column="12" selection-end-line="11" selection-end-column="12" />
             <folding />
           </first_editor>
           <second_editor />
