@@ -179,7 +179,11 @@ Updated code, AdvancedLines.py line 127, corrected formula to calculate position
 # Latest Review
 desviacion = ((leftx_current + rightx_current) / 2 - image.shape[1] / 2) * xm_per_pix
 ```
-
+# Update
+```
+    ym_per_pix = 3/103 # meters per pixel in y dimension
+    xm_per_pix = 3.7/792 # meters per pixel in x dimension
+```
 Center Position corrected values.
 The code was reviewed and the calculations to transform the distances from  image spage to world space were computed in reference with the following document (http://www.th.gov.bc.ca/publications/eng_publications/electrical/most_pm.pdf).
 The problem with the values of the position of the vehicle in relation to the Lane center, was found as the calculation of the position considered values at the lower edge of the image (y = 720) but the calculation of the position was in regards of the position at the end of the car's hood, that is at (y = 665).
